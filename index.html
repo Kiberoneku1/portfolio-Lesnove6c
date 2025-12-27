@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио Алексея Леснова | Новогоднее издание</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #34a853;
+            --accent: #ea4335;
+            --bg-light: #f8f9fa;
+            --text-light: #202124;
+            --card-light: #ffffff;
+            --bg-dark: #0f172a;
+            --text-dark: #e2e8f0;
+            --card-dark: #1e293b;
+            --newyear-gold: #FFD700;
+            --newyear-red: #D32F2F;
+            --newyear-green: #2E7D32;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: var(--bg-light);
+            color: var(--text-light);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(46, 125, 50, 0.05) 0%, transparent 20%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(46, 125, 50, 0.03) 0%, transparent 20%);
+        }
+
+        /* Новогодние снежинки */
+        .snowflake {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.8;
+        }
+
+        body.dark-mode .snowflake {
+            background: #e2e8f0;
+        }
+
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, var(--newyear-green), var(--newyear-red));
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-bottom: 4px solid var(--newyear-gold);
+        }
+
+        body.dark-mode header {
+            background: linear-gradient(135deg, #1b5e20, #b71c1c);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-img {
+            height: 60px;
+            animation: float 3s ease-in-out infinite;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .name {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--newyear-gold);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+
+        /* Кнопка смены темы */
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid var(--newyear-gold);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--newyear-gold);
+            color: var(--newyear-red);
+            transform: rotate(30deg) scale(1.1);
+        }
+
+        body.dark-mode .theme-toggle {
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        /* Основной контент */
+        main {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem;
+            background: var(--card-light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--newyear-gold);
+        }
+
+        body.dark-mode .hero {
+            background: var(--card-dark);
+        }
+
+        .hero::before {
+            content: '🎄 2026 🎅';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2rem;
+            color: var(--newyear-red);
+            font-weight: bold;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--newyear-green), var(--newyear-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        body.dark-mode .hero h1 {
+            background: linear-gradient(to right, #4caf50, #ef5350);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: inherit;
+        }
+
+        .hero-highlight {
+            color: var(--newyear-red);
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        body.dark-mode .hero-highlight {
+            color: #ef5350;
+        }
+
+        /* Секции */
+        .section {
+            background: var(--card-light);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+            border-left: 6px solid var(--newyear-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .section {
+            background: var(--card-dark);
+            border-left-color: #4caf50;
+        }
+
+        .section::after {
+            content: '✨';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            opacity: 0.3;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--newyear-green);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        body.dark-mode .section h2 {
+            color: #4caf50;
+        }
+
+        /* Технологии */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(46, 125, 50, 0.1));
+            padding: 1.2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        body.dark-mode .tech-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(46, 125, 50, 0.05));
+        }
+
+        /* Качества */
+        .qualities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .quality-tag {
+            background: linear-gradient(to right, var(--newyear-green), #2196F3);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quality-tag:nth-child(even) {
+            background: linear-gradient(to right, var(--newyear-red), #FF9800);
+        }
+
+        /* Прогресс-бар */
+        .progress-container {
+            margin-top: 0.5rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        body.dark-mode .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--newyear-green), var(--newyear-gold));
+            width: 60%;
+            border-radius: 5px;
+            animation: fillProgress 1.5s ease-out;
+        }
+
+        /* Мечты */
+        .dreams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .dream-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(211, 47, 47, 0.15));
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px dashed var(--newyear-gold);
+        }
+
+        body.dark-mode .dream-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(211, 47, 47, 0.08));
+        }
+
+        .dream-card i {
+            font-size: 2rem;
+            color: var(--newyear-red);
+            margin-bottom: 1rem;
+        }
+
+        /* Подвал */
+        footer {
+            background: linear-gradient(135deg, var(--newyear-green), #1a237e);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            margin-top: 4rem;
+            border-top: 4px solid var(--newyear-gold);
+        }
+
+        body.dark-mode footer {
+            background: linear-gradient(135deg, #1b5e20, #0d1b2a);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .copyright {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .creator {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 1rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .creator strong {
+            color: var(--newyear-gold);
+        }
+
+        /* Анимации */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes fillProgress {
+            from { width: 0; }
+            to { width: 60%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .tech-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .dreams-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Эффект появления при скролле */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Снежинки -->
+    <div id="snowflakes"></div>
+    
+    <!-- Шапка -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="hero.png" alt="Герой портфолио" class="hero-img" onerror="this.style.display='none'">
+                <h1 class="name">Алексей Леснов</h1>
+            </div>
+            
+            <div class="nav-controls">
+                <nav>
+                    <ul>
+                        <li><a href="#about">Обо мне</a></li>
+                        <li><a href="#skills">Навыки</a></li>
+                        <li><a href="#dreams">Мечты</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Основное содержимое -->
+    <main>
+        <section class="hero fade-in">
+            <h1>🎄 Новогоднее портфолио 2026 🎅</h1>
+            <p>Привет! Меня зовут <span class="hero-highlight">Алексей Леснов</span>, мне 11 лет и я из города Каменск-Уральский. Я - начинающий IT-универсал: программист, дизайнер и создатель игр.</p>
+            <p>Я учусь в школе программирования <span class="hero-highlight">KiberOne</span> и уже освоил множество современных технологий. Люблю превращать идеи в реальные проекты!</p>
+            <div style="margin-top: 2rem; font-size: 1.5rem;">
+                🎁 🎄 ✨ 🎅 🤶 ✨ 🎁
+            </div>
+        </section>
+        
+        <section id="about" class="section fade-in">
+            <h2><i class="fas fa-user"></i> Обо мне</h2>
+            <p><strong>Возраст:</strong> 11 лет</p>
+            <p><strong>Город:</strong> Каменск-Уральский</p>
+            <p><strong>Учебное заведение:</strong> Школа программирования KiberOne</p>
+            
+            <h3 style="margin-top: 2rem; color: var(--newyear-red);">Мои качества:</h3>
+            <div class="qualities">
+                <div class="quality-tag"><i class="fas fa-smile"></i> Дружелюбный</div>
+                <div class="quality-tag">
+                    <i class="fas fa-clock"></i> Пунктуальный
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>60%</span>
+                            <span>Стремлюсь к 100%!</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quality-tag"><i class="fas fa-star"></i> Инициативный</div>
+                <div class="quality-tag"><i class="fas fa-brain"></i> Умный</div>
+                <div class="quality-tag"><i class="fas fa-heart"></i> Чуткий</div>
+                <div class="quality-tag"><i class="fas fa-hard-hat"></i> Трудолюбивый</div>
+                <div class="quality-tag"><i class="fas fa-door-open"></i> Открытый к новому</div>
+            </div>
+            
+            <h3 style="margin-top: 2rem; color: var(--newyear-red);">Мои увлечения:</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
+                <span class="quality-tag" style="background: linear-gradient(to right, #2196F3, #3F51B5);"><i class="fas fa-code"></i> Программирование</span>
+                <span class="quality-tag" style="background: linear-gradient(to right, #9C27B0, #673AB7);"><i class="fas fa-palette"></i> Дизайн</span>
+                <span class="quality-tag" style="background: linear-gradient(to right, #FF9800, #F44336);"><i class="fas fa-gamepad"></i> Создание игр</span>
+                <span class="quality-tag" style="background: linear-gradient(to right, #009688, #4CAF50);"><i class="fas fa-swimming-pool"></i> Плавание</span>
+                <span class="quality-tag" style="background: linear-gradient(to right, #E91E63, #9C27B0);"><i class="fas fa-language"></i> Английский язык</span>
+            </div>
+        </section>
+        
+        <section id="skills" class="section fade-in">
+            <h2><i class="fas fa-laptop-code"></i> Технологии и навыки</h2>
+            <p>В школе программирования KiberOne я изучил следующие технологии:</p>
+            
+            <div class="tech-grid">
+                <div class="tech-card">C#</div>
+                <div class="tech-card">Python</div>
+                <div class="tech-card">JavaScript</div>
+                <div class="tech-card">Java</div>
+                <div class="tech-card">C++</div>
+                <div class="tech-card">HTML + CSS</div>
+                <div class="tech-card">Vibe coding & AI</div>
+                <div class="tech-card">Нейросети</div>
+                <div class="tech-card">Roblox Studio</div>
+                <div class="tech-card">Thunkable</div>
+                <div class="tech-card">Figma</div>
+                <div class="tech-card">Photoshop</div>
+                <div class="tech-card">Blender</div>
+                <div class="tech-card">Яндекс сервисы</div>
+            </div>
+        </section>
+        
+        <section id="dreams" class="section fade-in">
+            <h2><i class="fas fa-snowflake"></i> Мои мечты и цели</h2>
+            <p>Я строю планы на будущее и знаю, к чему стремлюсь:</p>
+            
+            <div class="dreams-grid">
+                <div class="dream-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Поступить в университет</h3>
+                    <p>Получить отличное IT-образование</p>
+                </div>
+                <div class="dream-card">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Зарабатывать много</h3>
+                    <p>Чтобы моё хобби стало профессией</p>
+                </div>
+                <div class="dream-card">
+                    <i class="fas fa-car"></i>
+                    <h3>Крутая машина</h3>
+                    <p>Возможно, даже с автопилотом</p>
+                </div>
+                <div class="dream-card">
+                    <i class="fas fa-plane"></i>
+                    <h3>Ездить в отпуск</h3>
+                    <p>Путешествовать по всему миру</p>
+                </div>
+                <div class="dream-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Отличные друзья</h3>
+                    <p>Окружать себя единомышленниками</p>
+                </div>
+                <div class="dream-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Свой проект</h3>
+                    <p>Создать стартап или крутую игру</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="section fade-in">
+            <h2><i class="fas fa-envelope"></i> Контакты</h2>
+            <p>Я открыт к новым возможностям и готов участвовать в интересных проектах!</p>
+            <p>Готов сотрудничать в создании игр, сайтов или дизайнерских проектов.</p>
+            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 12px; border: 1px dashed var(--newyear-gold);">
+                <p><strong>📍 Город:</strong> Каменск-Уральский</p>
+                <p><strong>🎓 Образование:</strong> Школа программирования KiberOne</p>
+                <p><strong>🎯 Цель:</strong> Развиваться в IT, создавать крутые проекты!</p>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Подвал -->
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                <p>🎄 Счастливого Нового 2026 года! 🎅</p>
+                <p>Пусть все мечты сбудутся, а проекты будут успешными!</p>
+            </div>
+            
+            <div class="creator">
+                <p><strong>Автор портфолио и создатель сайта:</strong> Алексей Леснов</p>
+                <p>11 лет, ученик школы программирования KiberOne</p>
+            </div>
+            
+            <div style="margin-top: 2rem; font-size: 1.8rem;">
+                ✨ 🎁 🎄 🎅 🤶 🎄 🎁 ✨
+            </div>
+            
+            <p style="margin-top: 2rem; opacity: 0.9;">© 2026 Новогоднее портфолио. Все права защищены.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Переменные для управления темой
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Проверяем сохраненную тему
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            enableDarkMode();
+        }
+        
+        // Обработчик переключения темы
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+        
+        // Включение темной темы
+        function enableDarkMode() {
+            body.classList.add('dark-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'dark');
+        }
+        
+        // Отключение темной темы
+        function disableDarkMode() {
+            body.classList.remove('dark-mode');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+        
+        // Создание снежинок
+        function createSnowflakes() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflakeCount = 50;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                
+                // Случайный размер
+                const size = Math.random() * 10 + 5;
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                
+                // Случайная позиция
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.top = `-${size}px`;
+                
+                // Случайная скорость падения
+                const fallSpeed = Math.random() * 3 + 2;
+                const swingSpeed = Math.random() * 5 + 2;
+                const swingDistance = Math.random() * 50 + 20;
+                
+                // Анимация падения
+                snowflake.style.animation = `
+                    fall ${fallSpeed}s linear infinite,
+                    sway ${swingSpeed}s ease-in-out infinite alternate
+                `;
+                
+                // CSS для анимации
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fall {
+                        to {
+                            transform: translateY(100vh) translateX(${swingDistance}px);
+                            opacity: 0;
+                        }
+                    }
+                    @keyframes sway {
+                        from {
+                            transform: translateX(0);
+                        }
+                        to {
+                            transform: translateX(${swingDistance}px);
+                        }
+                    }
+                `;
+                
+                document.head.appendChild(style);
+                snowflakesContainer.appendChild(snowflake);
+                
+                // Удаляем снежинку после падения и создаем новую
+                setTimeout(() => {
+                    snowflake.remove();
+                    createSnowflake();
+                }, fallSpeed * 1000);
+            }
+        }
+        
+        // Создание одной снежинки
+        function createSnowflake() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            
+            const size = Math.random() * 10 + 5;
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.top = `-${size}px`;
+            
+            const fallSpeed = Math.random() * 3 + 2;
+            const swingSpeed = Math.random() * 5 + 2;
+            const swingDistance = Math.random() * 50 + 20;
+            
+            snowflake.style.animation = `
+                fall ${fallSpeed}s linear infinite,
+                sway ${swingSpeed}s ease-in-out infinite alternate
+            `;
+            
+            snowflakesContainer.appendChild(snowflake);
+            
+            setTimeout(() => {
+                snowflake.remove();
+                createSnowflake();
+            }, fallSpeed * 1000);
+        }
+        
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Анимация появления элементов при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Наблюдаем за всеми секциями
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Новогоднее поздравление при загрузке
+        window.addEventListener('load', () => {
+            console.log('🎄 С Новым 2026 годом, Алексей! 🎅');
+            console.log('Пусть все твои IT-проекты будут успешными!');
+            
+            // Создаем снежинки
+            createSnowflakes();
+            
+            // Добавляем эффект мигания заголовка
+            const heroTitle = document.querySelector('.hero h1');
+            setInterval(() => {
+                heroTitle.style.textShadow = '0 0 10px gold';
+                setTimeout(() => {
+                    heroTitle.style.textShadow = 'none';
+                }, 500);
+            }, 2000);
+        });
+        
+        // Новогодний таймер
+        function updateNewYearTimer() {
+            const now = new Date();
+            const newYear = new Date(now.getFullYear() + 1, 0, 1);
+            const diff = newYear - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            
+            const timerElement = document.createElement('div');
+            timerElement.innerHTML = `
+                <div style="text-align: center; margin-top: 1rem; padding: 0.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 8px;">
+                    <small>До Нового ${now.getFullYear() + 1} года: ${days} дней ${hours} часов!</small>
+                </div>
+            `;
+            
+            const existingTimer = document.querySelector('.new-year-timer');
+            if (existingTimer) {
+                existingTimer.remove();
+            }
+            
+            timerElement.classList.add('new-year-timer');
+            document.querySelector('.hero').appendChild(timerElement);
+        }
+        
+        // Обновляем таймер каждую минуту
+        setInterval(updateNewYearTimer, 60000);
+        updateNewYearTimer();
+    </script>
+</body>
+</html>
